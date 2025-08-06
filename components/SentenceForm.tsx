@@ -27,6 +27,8 @@ export default function SentenceForm() {
     return data.result
   }
 
+  console.log('explanantion', explanation)
+
   return (
     <section className="flex flex-col items-center justify-between px-4 py-8 sm:px-8 sm:py-24">
       <h1 className="mb-6 text-center text-2xl font-bold sm:mb-8 sm:text-4xl">
@@ -50,12 +52,12 @@ export default function SentenceForm() {
         >
           Generate Explanation
         </Button>
-        {explanation && (
+        {/* {explanation && (
           <div className="mt-4 w-full max-w-md">
             <h2 className="mb-2 text-lg font-bold">Explanation:</h2>
             <p>{explanation}</p>
           </div>
-        )}
+        )} */}
       </div>
     </section>
   )
