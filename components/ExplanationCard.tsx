@@ -1,12 +1,24 @@
-export default function ExplanationCard({ explanation }: {
+import { speakDutch } from '@/lib/speak'
+
+export default function ExplanationCard({
+  explanation,
+  originalDutchSentence,
+}: {
   explanation: {
-    translation: string;
-    wordByWord: { word: string; meaning: string }[];
-    grammarExplanation: string;
-  };
+    translation: string
+    wordByWord: { word: string; meaning: string }[]
+    grammarExplanation: string
+  }
+  originalDutchSentence: string
 }) {
   return (
-    <div className="p-4 border rounded-md space-y-4 bg-gray-50">
+    <div className="space-y-4 rounded-md border bg-gray-50 p-4">
+      <button
+        onClick={() => speakDutch(originalDutchSentence)}
+        className="rounded bg-gray-200 px-2 py-1 text-sm"
+      >
+        🔊 Hear Dutch
+      </button>
       <section>
         <h2 className="font-semibold">📖 Translation</h2>
         <p>{explanation.translation}</p>
@@ -28,5 +40,5 @@ export default function ExplanationCard({ explanation }: {
         <p>{explanation.grammarExplanation}</p>
       </section>
     </div>
-  );
+  )
 }

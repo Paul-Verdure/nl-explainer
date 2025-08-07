@@ -11,9 +11,11 @@ import { MAX_CHARACTERS_INPUT } from '@/app/constants/formConstants'
 export default function SentenceForm({
   onExplain,
   loading,
+  setSentence
 }: {
   onExplain: (sentence: string) => void
   loading: boolean
+  setSentence: (sentence: string) => void
 }) {
   const [input, setInput] = useState('')
 
@@ -21,6 +23,7 @@ export default function SentenceForm({
     e.preventDefault()
     if (!input.trim()) return
     onExplain(input.trim())
+    setSentence(input.trim())
   }
 
   return (
