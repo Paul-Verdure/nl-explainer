@@ -1,64 +1,54 @@
 'use client'
 
-import React from 'react'
+import { useState } from 'react'
+
+import { Loader2Icon } from 'lucide-react'
 
 import { Button } from './ui/button'
 import { Textarea } from './ui/textarea'
+import { MAX_CHARACTERS_INPUT } from '@/app/constants/formConstants'
 
-export default function SentenceForm() {
-  const [inputText, setInputText] = React.useState('')
-  const [explanation, setExplanation] = React.useState('')
+export default function SentenceForm({
+  onExplain,
+  loading,
+}: {
+  onExplain: (sentence: string) => void
+  loading: boolean
+}) {
+  const [input, setInput] = useState('')
 
-  const getExplanation = async (sentence: string) => {
-    if (!sentence) {
-      return 'Please provide a sentence.'
-    }
-    const res = await fetch('/api/explain', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sentence }),
-    })
-
-    const data = await res.json()
-    setExplanation(data.result)
-    if (res.status !== 200) {
-      return `Error: ${data.error || 'Something went wrong'}`
-    }
-    return data.result
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!input.trim()) return
+    onExplain(input.trim())
   }
 
-  console.log('explanantion', explanation)
-
   return (
-    <section className="flex flex-col items-center justify-between px-4 py-8 sm:px-8 sm:py-24">
-      <h1 className="mb-6 text-center text-2xl font-bold sm:mb-8 sm:text-4xl">
-        Welcome to NL Explainer
-      </h1>
-      <p className="mb-4 text-center text-base sm:text-lg">
-        Paste below your text and get a detailed explanation.
-      </p>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       <Textarea
-        className="mb-6 min-h-[120px] w-full max-w-md"
-        placeholder="Type or paste your text here..."
-        value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
+        value={input}
+        onChange={(e) => {
+          if (e.target.value.length <= MAX_CHARACTERS_INPUT) setInput(e.target.value)
+        }}
+        placeholder="Enter a Dutch sentence..."
+        className="flex-1 rounded-md border p-2"
+        maxLength={MAX_CHARACTERS_INPUT}
       />
-      <div className="mt-4 flex w-full max-w-md justify-center">
-        <Button
-          className="w-full bg-blue-500 text-white hover:bg-blue-600 sm:w-auto"
-          onClick={() => {
-            getExplanation(inputText).then(setExplanation)
-          }}
-        >
-          Generate Explanation
-        </Button>
-        {/* {explanation && (
-          <div className="mt-4 w-full max-w-md">
-            <h2 className="mb-2 text-lg font-bold">Explanation:</h2>
-            <p>{explanation}</p>
+      <div className="text-right text-sm text-gray-500">{input.length}/{MAX_CHARACTERS_INPUT}</div>
+      <Button
+        type="submit"
+        disabled={loading}
+        className="rounded-md bg-blue-600 px-4 py-2 text-white"
+      >
+        {loading ? (
+          <div className="flex items-center gap-2">
+            Please wait
+            <Loader2Icon className="animate-spin" />
           </div>
-        )} */}
-      </div>
-    </section>
+        ) : (
+          'Explain'
+        )}
+      </Button>
+    </form>
   )
 }
