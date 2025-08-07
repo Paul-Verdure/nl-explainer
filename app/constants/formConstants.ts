@@ -1,0 +1,1 @@
+export const MAX_CHARACTERS_INPUT = 200;  
