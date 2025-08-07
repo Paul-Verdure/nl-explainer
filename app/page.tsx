@@ -8,6 +8,7 @@ import SentenceForm from '@/components/SentenceForm'
 export default function Home() {
   const [explanation, setExplanation] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [sentence, setSentence] = useState('')
 
   const handleExplain = async (sentence: string) => {
     setLoading(true)
@@ -31,8 +32,8 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-2xl space-y-6 p-6">
       <h1 className="text-2xl font-bold text-center">Dutch Sentence Explainer 🇳🇱</h1>
-      <SentenceForm onExplain={handleExplain} loading={loading} />
-      {explanation && <ExplanationCard explanation={explanation} />}
+      <SentenceForm onExplain={handleExplain} loading={loading} setSentence={setSentence} />
+      {explanation && <ExplanationCard explanation={explanation} originalDutchSentence={sentence} />}
     </main>
   )
 }
