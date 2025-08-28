@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import ExplanationCard from '@/components/ExplanationCard'
 import SentenceForm from '@/components/SentenceForm'
+import { NavBar } from '@/components/NavBar'
 
 export default function Home() {
   const [explanation, setExplanation] = useState(null)
@@ -31,6 +32,7 @@ export default function Home() {
 
   return (
     <main className="mx-auto max-w-2xl space-y-6 p-6">
+      <NavBar />
       <h1 className="text-2xl font-bold text-center">Dutch Sentence Explainer 🇳🇱</h1>
       <SentenceForm onExplain={handleExplain} loading={loading} setSentence={setSentence} />
       {explanation && <ExplanationCard explanation={explanation} originalDutchSentence={sentence} />}
