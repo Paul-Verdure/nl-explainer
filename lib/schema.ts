@@ -12,3 +12,18 @@ export const ExplanationSchema = z.object({
 })
 
 export type Explanation = z.infer<typeof ExplanationSchema>
+
+
+export const WordSchema = z.object({
+  word: z.string(),
+  translations: z.array(z.string()),
+  definitions: z.array(
+    z.object({
+      meaning: z.string(),
+      definition: z.string(),
+      examples: z.array(z.string()).length(2),
+    }),
+  ),
+})
+
+export type WordExplanation = z.infer<typeof WordSchema>
