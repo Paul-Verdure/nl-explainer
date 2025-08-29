@@ -20,12 +20,12 @@ export function NavBar() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link href="/">Sentence</Link>
+            <Link href="/sentence">Sentence</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link href="/">Word</Link>
+            <Link href="/word">Word</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
